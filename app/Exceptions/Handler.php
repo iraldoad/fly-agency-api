@@ -2,7 +2,12 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -41,10 +46,52 @@ class Handler extends ExceptionHandler
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->reportable(function (Throwable $e) {
             //
+        });
+
+        $this->renderable(function (Throwable $e, $request) {
+            return $request->ajax()
+            || $request->acceptsJson()
+            || $request->expectsJson()
+            || $request->isJson()
+            || $request->wantsJson() ? match (true) {
+                $e instanceof ValidationException
+                => jsend_fail([
+                    'errors' => $e->errors(),
+                ]),
+
+                $e->getPrevious() instanceof ModelNotFoundException
+                => jsend_fail([
+                    'message' => __('model.model_not_found', [
+                        'model' => class_basename($e->getPrevious()->getModel()),
+                        'key' => implode(', ', $e->getPrevious()->getIds()),
+                    ])
+                ]),
+
+                $e instanceof ModelNotFoundException
+                => jsend_fail([
+                    'message' => __('model.model_not_found', [
+                        'model' => class_basename($e->getModel()),
+                        'key' => implode(', ', $e->getIds()),
+                    ])
+                ]),
+
+                $e instanceof NotFoundHttpException
+                => jsend_fail([
+                    'message' => __('route.404_not_found')
+                ]),
+
+                $e instanceof UnauthorizedHttpException,
+                    $e instanceof AuthorizationException
+                => jsend_fail([
+                    'message' => __('auth.unauthorized'),
+                ]),
+
+                default => jsend_error($e->getMessage()),
+            } : $this;
         });
     }
 }
