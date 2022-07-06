@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e3732d665142bad0b1177cc5f19b6d3f",
+    "content-hash": "447b258fbc76bdee6495ed596a2aa46c",
     "packages": [
         {
             "name": "brick/math",
@@ -436,6 +436,59 @@
                 }
             ],
             "time": "2022-06-18T20:57:19+00:00"
+        },
+        {
+            "name": "ejarnutowski/laravel-api-key",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/iraldoad/laravel-api-key.git",
+                "reference": "ff6c064e0fd345eff2ed02b514c5e1cdf94d14c0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/iraldoad/laravel-api-key/zipball/ff6c064e0fd345eff2ed02b514c5e1cdf94d14c0",
+                "reference": "ff6c064e0fd345eff2ed02b514c5e1cdf94d14c0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "dont-discover": [
+                        "ejarnutowski/laravel-api-key"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Ejarnutowski\\LaravelApiKey\\": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Elliott Jarnutowski",
+                    "email": "e@jarno.co"
+                }
+            ],
+            "description": "Authorize requests to your Laravel application with API keys",
+            "keywords": [
+                "api",
+                "api key",
+                "authentication",
+                "authorization",
+                "laravel"
+            ],
+            "support": {
+                "source": "https://github.com/iraldoad/laravel-api-key/tree/master"
+            },
+            "time": "2021-03-16T18:44:50+00:00"
         },
         {
             "name": "fruitcake/php-cors",
@@ -7807,7 +7860,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "ejarnutowski/laravel-api-key": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

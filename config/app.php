@@ -125,6 +125,8 @@ return [
 
     'key' => env('APP_KEY'),
 
+    'use_api_key' => env('USE_API_KEY', true),
+
     'cipher' => 'AES-256-CBC',
 
     /*
@@ -187,6 +189,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Ejarnutowski\LaravelApiKey\Providers\ApiKeyServiceProvider::class,
 
         /*
          * Application Service Providers...

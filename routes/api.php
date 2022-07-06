@@ -13,8 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::apiResources([
-    'flights' => \App\Http\Controllers\FlightController::class,
+Route::group([
+    'middleware' => config('app.use_api_key')
+        ? ['auth.apikey']
+        : []
+], function () {
+    Route::apiResources([
+        'flights' => \App\Http\Controllers\FlightController::class,
 
-    'tickets' => \App\Http\Controllers\TicketController::class,
-]);
+        'tickets' => \App\Http\Controllers\TicketController::class,
+    ]);
+});
