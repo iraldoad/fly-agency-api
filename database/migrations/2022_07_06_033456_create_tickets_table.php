@@ -18,7 +18,7 @@ return new class extends Migration
 
             $table->foreignIdFor(\App\Models\Flight::class)
                 ->constrained();
-            $table->string('full_name', 255);
+            $table->string('passenger_name', 255);
             $table->integer('seat');
 
             $table->unique(['flight_id', 'seat']);

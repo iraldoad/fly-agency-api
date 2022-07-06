@@ -15,4 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiResources([
     'flights' => \App\Http\Controllers\FlightController::class,
+
+    'tickets' => \App\Http\Controllers\TicketController::class,
 ]);

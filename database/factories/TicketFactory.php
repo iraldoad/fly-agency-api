@@ -27,7 +27,7 @@ class TicketFactory extends Factory
 
         return [
             'flight_id' => $flight->id,
-            'full_name' => $this->faker->name,
+            'passenger_name' => $this->faker->name,
             'seat' => $flight->tickets_count + 1,
         ];
     }
